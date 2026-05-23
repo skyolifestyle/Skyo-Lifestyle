@@ -1,213 +1,23 @@
-:root {
-    /* Luxury Color Palette */
-    --gold-subtle: #c5a059;
-    --deep-black: #0a0a0a;
-    --matte-white: #ffffff;
-    --pearl-gray: #f8f8f8;
-    --border-subtle: rgba(0, 0, 0, 0.04);
-    
-    /* Animation & Shadow Constants */
-    --luxury-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-    --hover-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-    --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* --- Products Grid: High-End Spacing --- */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px; /* Increased breathing room */
-    padding: 20px 0;
+    grid-template-columns: repeat(2, 1fr); /* ২ কলাম */
+    gap: 15px; padding: 20px 10px 100px;
 }
 
-/* --- Luxury Product Card --- */
 .product-card {
-    background: var(--matte-white);
-    border-radius: 0; /* Sharp minimalist or slightly rounded (2px) is more premium */
-    overflow: hidden;
-    transition: var(--transition-smooth);
-    border: none;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    background: #fff; border: 1px solid #f0f0f0; border-radius: 4px;
+    padding: 10px; position: relative;
 }
 
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--hover-shadow);
-}
+.product-image { width: 100%; height: 180px; object-fit: cover; }
+.wishlist-icon { position: absolute; top: 15px; right: 15px; color: #ccc; }
 
-/* --- Image Container: The Zoom Effect --- */
-.product-image {
-    width: 100%;
-    aspect-ratio: 4 / 5; /* Fashion-standard aspect ratio */
-    background: var(--pearl-gray);
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.product-info { padding-top: 10px; }
+.product-title { font-size: 13px; color: #333; height: 32px; overflow: hidden; margin-bottom: 5px; }
+.product-price { font-size: 15px; font-weight: 700; color: #000; margin-bottom: 10px; }
 
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+.btn-choose {
+    width: 100%; padding: 8px; border: 1px solid #ddd;
+    background: #fff; font-size: 12px; font-weight: 600; cursor: pointer;
 }
-
-.product-card:hover .product-image img {
-    transform: scale(1.1);
-}
-
-/* --- Premium Badge (Minimalist) --- */
-.product-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: var(--deep-black);
-    color: white;
-    padding: 4px 12px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    z-index: 10;
-}
-
-/* --- Product Info: Sophisticated Typography --- */
-.product-info {
-    padding: 25px 15px;
-    text-align: center; /* Premium brands often center text */
-}
-
-.product-category {
-    color: var(--gold-subtle);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 10px;
-}
-
-.product-title {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--deep-black);
-    letter-spacing: -0.2px;
-    margin-bottom: 12px;
-    line-height: 1.2;
-}
-
-.product-price {
-    font-size: 20px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    color: var(--deep-black);
-    margin-bottom: 15px;
-}
-
-/* --- Premium Action Buttons (Glass & Matte) --- */
-.product-actions {
-    display: flex;
-    flex-direction: column; /* Stacked looks cleaner in luxury UI */
-    gap: 8px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: var(--transition-smooth);
-    position: absolute;
-    bottom: 110px; /* Positioned over image on hover */
-    left: 15px;
-    right: 15px;
-    z-index: 20;
-}
-
-.product-card:hover .product-actions {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.btn-buy, .btn-add-cart, .btn-whatsapp-order {
-    padding: 14px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 0; /* Square edges feel more "expensive" */
-    transition: var(--transition-smooth);
-}
-
-.btn-add-cart {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    color: var(--deep-black);
-    border: 1px solid var(--border-subtle);
-}
-
-.btn-add-cart:hover {
-    background: var(--deep-black);
-    color: white;
-}
-
-/* --- Premium Modal (Quick View) --- */
-.product-modal {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px); /* Modern OS look */
-}
-
-.product-modal-content {
-    border-radius: 0;
-    box-shadow: 0 50px 100px rgba(0,0,0,0.2);
-    border: none;
-    max-width: 900px; /* Wider for 2-column layout */
-}
-
-.product-modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Image left, info right */
-    gap: 40px;
-    padding: 40px;
-}
-
-/* --- Cart Drawer: Minimalist --- */
-.cart-item {
-    border-bottom: 1px solid #f0f0f0;
-    padding: 20px 0;
-}
-
-.cart-item-image {
-    background: #f9f9f9;
-    border-radius: 0;
-}
-
-.cart-item-title {
-    font-weight: 500;
-    letter-spacing: -0.3px;
-}
-
-.qty-btn {
-    border-radius: 0;
-    background: transparent;
-    border: 1px solid #e0e0e0;
-}
-
-/* --- Responsive Polish --- */
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr); /* Clean 2-column mobile */
-        gap: 20px;
-        padding: 10px;
-    }
-    
-    .product-actions {
-        position: static; /* Show buttons normally on mobile */
-        opacity: 1;
-        transform: none;
-        padding: 0 15px 15px;
-    }
-
-    .product-modal-body {
-        grid-template-columns: 1fr;
-        padding: 20px;
-    }
-}
+.btn-choose:hover { background: var(--primary); color: #fff; border-color: var(--primary); }

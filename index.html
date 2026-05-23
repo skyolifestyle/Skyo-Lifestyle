@@ -12,7 +12,6 @@
 </head>
 <body>
 
-    <!-- Top Header -->
     <header class="header">
         <div class="nav-container">
             <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
@@ -28,7 +27,6 @@
         </div>
     </header>
 
-    <!-- Side Mobile Menu -->
     <div id="sideMenu" class="side-menu">
         <div class="menu-header">
             <h3>Menu</h3>
@@ -43,9 +41,7 @@
         </ul>
     </div>
 
-    <!-- Main Content -->
     <main>
-        <!-- Twelve Style Banner -->
         <section class="lifestyle-banner">
             <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000" alt="Banner">
             <div class="banner-content">
@@ -53,14 +49,30 @@
             </div>
         </section>
 
+        <section class="gadget-slider-section">
+            <div class="gadget-slider">
+                <div class="slides-container">
+                    <div class="slide active">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000" alt="Smart Watch">
+                        <div class="banner-content">
+                            <button class="shop-now-btn">Shop Now</button>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000" alt="Headphones">
+                        <div class="banner-content">
+                            <button class="shop-now-btn">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="container">
             <div id="productsGrid" class="products-grid">
-                <!-- Products load here -->
-            </div>
+                </div>
         </section>
     </main>
 
-    <!-- Sticky Bottom Navigation (Gadget & Gear Style) -->
     <div class="bottom-nav">
         <a href="#"><i class="fas fa-home"></i><span>Home</span></a>
         <a href="#"><i class="fas fa-gift"></i><span>Offers</span></a>
@@ -68,7 +80,6 @@
         <a href="tel:01601193696"><i class="fas fa-phone"></i><span>Call</span></a>
     </div>
 
-    <!-- Cart Sidebar -->
     <div id="cartSidebar" class="cart-sidebar">
         <div class="cart-header">
             <h3>Your Bag</h3>
@@ -83,5 +94,21 @@
 
     <script src="js/products-data.js"></script>
     <script src="js/app.js"></script>
+
+    <script>
+        const gadgetSlides = document.querySelectorAll('.gadget-slider .slide');
+        let currentGadgetSlide = 0;
+        const gadgetSlideInterval = 4000; // ৪ সেকেন্ড পর পর ব্যানার পরিবর্তন হবে
+
+        function nextGadgetSlide() {
+            if(gadgetSlides.length > 0) {
+                gadgetSlides[currentGadgetSlide].classList.remove('active');
+                currentGadgetSlide = (currentGadgetSlide + 1) % gadgetSlides.length;
+                gadgetSlides[currentGadgetSlide].classList.add('active');
+            }
+        }
+
+        setInterval(nextGadgetSlide, gadgetSlideInterval);
+    </script>
 </body>
 </html>

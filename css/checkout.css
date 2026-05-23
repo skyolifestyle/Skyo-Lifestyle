@@ -1,3 +1,10 @@
+:root {
+    --primary: #ff7a00; /* Twelve Clothing Orange */
+    --accent: #e06c00;  /* ফোকাস ও হোভারের জন্য একটু ডার্ক অরেঞ্জ */
+    --black: #1a1a1a;
+    --gray: #f4f4f4;
+}
+
 /* --- Checkout Modal Glassmorphism --- */
 .modal {
     display: none;
@@ -6,6 +13,7 @@
     width: 100%; height: 100%;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Safari ব্রাউজারের জন্য */
     z-index: 2000;
     overflow-y: auto;
 }
@@ -21,10 +29,36 @@
     grid-template-columns: 1.2fr 1fr; /* Form left, Summary right */
     gap: 40px;
     position: relative;
+    box-sizing: border-box;
+}
+
+/* 🟢 যোগ করা হয়েছে: ক্লোজ বাটনের ডিজাইন */
+.close-checkout {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: 300;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+    z-index: 10;
+}
+.close-checkout:hover {
+    color: var(--primary);
 }
 
 @media (max-width: 768px) {
-    .checkout-form-container { grid-template-columns: 1fr; margin: 10px; padding: 20px; }
+    .checkout-form-container { 
+        grid-template-columns: 1fr; 
+        margin: 60px 15px 20px 15px; /* মোবাইলে ওপরের হেডারের জন্য একটু গ্যাপ রাখা হয়েছে */
+        padding: 25px 20px; 
+    }
+    .close-checkout {
+        top: 15px;
+        right: 20px;
+    }
 }
 
 /* --- Section Titles --- */
@@ -34,6 +68,7 @@
     letter-spacing: -0.5px;
     margin-bottom: 25px;
     text-transform: uppercase;
+    margin-top: 0;
 }
 
 /* --- Inputs Premium Style --- */
@@ -47,8 +82,17 @@
     font-family: inherit;
     font-size: 14px;
     transition: all 0.3s;
+    box-sizing: border-box;
 }
-.form-group input:focus { border-color: var(--accent); outline: none; background: white; }
+.form-group textarea {
+    resize: none; /* 🟢 যোগ করা হয়েছে: ইউজার যাতে বক্স টেনে ডিজাইন নষ্ট না করতে পারে */
+    height: 80px;
+}
+.form-group input:focus, .form-group textarea:focus { 
+    border-color: var(--accent); 
+    outline: none; 
+    background: white; 
+}
 
 /* --- Payment Option Tiles --- */
 .payment-options {
@@ -65,6 +109,7 @@
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    border-radius: 4px;
 }
 
 .payment-option input { display: none; } /* Hide radio button */
@@ -75,6 +120,7 @@
     border: 1px solid #ddd;
     border-radius: 50%;
     margin-right: 15px;
+    flex-shrink: 0; /* মোবাইলে গোল বৃত্ত যাতে চ্যাপ্টা না হয়ে যায় */
 }
 
 .payment-option.selected { border-color: var(--accent); background: #fffdf9; }
@@ -88,6 +134,7 @@
     background: #fafafa;
     padding: 30px;
     border-radius: 4px;
+    align-self: start; /* ডানপাশের সামারি বক্সটি যাতে ফালতু লম্বা না হয়ে যায় */
 }
 
 .summary-items-list { border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
@@ -106,6 +153,7 @@
     margin-top: 30px;
     cursor: pointer;
     transition: all 0.4s;
+    border-radius: 4px;
 }
 
 .place-order-btn:hover { background: var(--accent); }

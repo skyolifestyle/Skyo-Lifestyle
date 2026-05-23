@@ -41,11 +41,11 @@ function updatePaymentInstructions() {
                 <div class="payment-instructions active">
                     <h4>📱 Nagad Payment Instructions</h4>
                     <p><strong>Send Money to:</strong></p>
-                    <div class="payment-number">01601193696</div>
+                    <div class="payment-number">01331259766</div>
                     <p><strong>Steps:</strong></p>
                     <p>1. Open Nagad App</p>
                     <p>2. Select "Send Money"</p>
-                    <p>3. Enter the Nagad number: 01601193696</p>
+                    <p>3. Enter the Nagad number: 01331259766</p>
                     <p>4. Enter the amount: <strong id="nagadAmount">৳0</strong></p>
                     <p>5. Complete the transaction</p>
                     <p><strong>⚠️ Important:</strong> Share your transaction ID with us via WhatsApp after payment</p>

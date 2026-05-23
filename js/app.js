@@ -2,35 +2,31 @@ let cart = JSON.parse(localStorage.getItem('SKYO_CART')) || [];
 
 function displayProducts(items) {
     const grid = document.getElementById('productsGrid');
-    grid.innerHTML = items.map(product => `
+    grid.innerHTML = items.map(p => `
         <div class="product-card">
-            <div class="product-image">
-                ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                <img src="${product.image}" alt="${product.name}">
-                <div class="product-actions">
-                    <button class="btn-add-cart" onclick="addToCart(${product.id})">Add to Bag</button>
-                </div>
-            </div>
+            <i class="far fa-heart wishlist-icon"></i>
+            <img src="${p.image}" class="product-image">
             <div class="product-info">
-                <p class="product-category">${product.category}</p>
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-price">৳${product.price.toLocaleString()}</p>
+                <h3 class="product-title">${p.name}</h3>
+                <p class="product-price">Tk ${p.price.toLocaleString()}</p>
+                <button class="btn-choose" onclick="addToCart(${p.id})">ADD TO BAG</button>
             </div>
         </div>
     `).join('');
 }
 
+function toggleMenu() { document.getElementById('sideMenu').classList.toggle('active'); }
+
+function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); }
+
 function addToCart(id) {
     const product = products.find(p => p.id === id);
-    const inCart = cart.find(item => item.id === id);
+    const inCart = cart.find(i => i.id === id);
+    if(inCart) inCart.qty++;
+    else cart.push({...product, qty: 1});
     
-    if(inCart) {
-        inCart.qty++;
-    } else {
-        cart.push({...product, qty: 1});
-    }
     updateCart();
-    toggleCart(true);
+    toggleCart(); // ওপেন করবে সাইডবার
 }
 
 function updateCart() {
@@ -39,11 +35,23 @@ function updateCart() {
     renderCart();
 }
 
-function toggleCart(forceOpen = false) {
-    const sidebar = document.getElementById('cartSidebar');
-    if(forceOpen) sidebar.classList.add('active');
-    else sidebar.classList.toggle('active');
+function renderCart() {
+    const items = document.getElementById('cartItems');
+    items.innerHTML = cart.map(i => `
+        <div style="display:flex; gap:10px; padding:15px; border-bottom:1px solid #eee;">
+            <img src="${i.image}" width="50">
+            <div>
+                <h5 style="margin:0">${i.name}</h5>
+                <p>Tk ${i.price} x ${i.qty}</p>
+            </div>
+        </div>
+    `).join('');
+    
+    const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+    document.getElementById('subtotal').innerText = `Tk ${total.toLocaleString()}`;
 }
 
-// Initial Load
-document.addEventListener('DOMContentLoaded', () => displayProducts(products));
+document.addEventListener('DOMContentLoaded', () => {
+    displayProducts(products);
+    updateCart();
+});

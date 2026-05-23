@@ -3,100 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKYO Lifestyle | Defined by Excellence</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>SKYO Lifestyle | Premium Fashion & Gadgets</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/checkout.css">
 </head>
 <body>
 
-    <!-- Premium Loader -->
-    <div id="loader" class="luxury-loader">
-        <div class="loader-content">SKYO</div>
-    </div>
-
-    <!-- Navigation -->
+    <!-- Glass Navbar -->
     <header class="header">
         <nav class="nav-container">
-            <div class="logo">Skyo.</div>
-            <div class="nav-links hide-mobile">
-                <a href="#new">New Arrivals</a>
-                <a href="#fashion">Fashion</a>
-                <a href="#gadgets">Gadgets</a>
-                <a href="#boutique">Boutique</a>
+            <div class="logo">SKYO<span>.</span></div>
+            <div class="nav-links">
+                <a href="#" onclick="filterCategory('all')">New Arrivals</a>
+                <a href="#" onclick="filterCategory('fashion')">Fashion</a>
+                <a href="#" onclick="filterCategory('gadgets')">Gadgets</a>
             </div>
             <div class="nav-icons">
-                <a href="#"><i class="fas fa-search"></i></a>
-                <a href="#" id="cartToggle"><i class="fas fa-shopping-bag"></i> <span class="badge">0</span></a>
+                <a href="#" class="search-trigger"><i class="fas fa-search"></i></a>
+                <a href="#" class="cart-trigger" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span id="cartCount" class="badge">0</span>
+                </a>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <!-- Using a high-quality stock video or HD image -->
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=80" class="hero-video-bg">
         <div class="hero-content">
-            <p class="reveal-text">New Season 2026</p>
-            <h1>Elevate Your Every Day.</h1>
-            <button class="btn-premium">Explore Collection</button>
+            <span class="hero-tag">Summer Collection 2026</span>
+            <h1>The New Era of Lifestyle.</h1>
+            <p>Experience premium quality fashion and cutting-edge gadgets designed for you.</p>
+            <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView()">Explore Shop</button>
         </div>
     </section>
 
-    <!-- Category Bento Grid -->
-    <section class="category-section">
-        <div class="bento-grid">
-            <div class="bento-item bento-1">
-                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800" alt="">
-                <div class="bento-overlay">
-                    <h3>High Fashion</h3>
-                    <p>Spring Summer 2026</p>
-                </div>
-            </div>
-            <div class="bento-item bento-2">
-                <img src="https://images.unsplash.com/photo-1546868889-4e0c6819757e?auto=format&fit=crop&w=800" alt="">
-                <div class="bento-overlay">
-                    <h3>Smart Gadgets</h3>
-                </div>
-            </div>
-            <div class="bento-item">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800" alt="">
-                <div class="bento-overlay">
-                    <h3>Accessories</h3>
-                </div>
-            </div>
-            <div class="bento-item">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800" alt="">
-                <div class="bento-overlay">
-                    <h3>Audio Labs</h3>
-                </div>
-            </div>
+    <!-- Products Section -->
+    <main id="shop" class="container">
+        <div class="section-title">
+            <h2>Featured Collections</h2>
+            <p>Handpicked products for your premium lifestyle</p>
         </div>
-    </section>
+        <div id="productsGrid" class="products-grid">
+            <!-- JS will load products here -->
+        </div>
+    </main>
 
-    <!-- Featured Products -->
-    <section class="products-section container">
-        <div class="section-header">
-            <h2>Trending Now</h2>
-            <a href="#">View All</a>
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Bag</h3>
+            <button onclick="toggleCart()" class="close-cart">&times;</button>
         </div>
-        <div class="products-grid" id="productContainer">
-            <!-- Dynamically injected via JS -->
+        <div id="cartItems" class="cart-items">
+            <!-- Items load here -->
         </div>
-    </section>
-
-    <!-- Mobile Bottom Navigation -->
-    <div class="mobile-bottom-nav">
-        <a href="#"><i class="fas fa-home"></i></a>
-        <a href="#"><i class="fas fa-th-large"></i></a>
-        <a href="#"><i class="fas fa-shopping-bag"></i></a>
-        <a href="#"><i class="fas fa-user"></i></a>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Subtotal</span>
+                <span id="subtotal">৳0</span>
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()">Checkout Now</button>
+            <button class="wa-btn" onclick="orderViaWhatsApp()">Order via WhatsApp</button>
+        </div>
     </div>
 
-    <!-- Luxury Cart Drawer -->
-    <div class="cart-drawer" id="cartDrawer">
-        <!-- Minimalist content -->
-    </div>
-
+    <!-- JS Scripts -->
+    <script src="js/products-data.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/checkout.js"></script>
 </body>
 </html>

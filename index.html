@@ -3,320 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyo Lifestyle - Premium Fashion & Gadgets</title>
+    <title>SKYO Lifestyle | Defined by Excellence</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/products.css">
-    <link rel="stylesheet" href="css/checkout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/8801601193696?text=Hello%20Skyo%20Lifestyle!%20I%20need%20help" class="whatsapp-float" id="whatsappFloat" title="Chat with us on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
 
-    <!-- Header -->
+    <!-- Premium Loader -->
+    <div id="loader" class="luxury-loader">
+        <div class="loader-content">SKYO</div>
+    </div>
+
+    <!-- Navigation -->
     <header class="header">
-        <div class="container">
-            <div class="header-top">
-                <div class="logo">
-                    <h1>✨ Skyo Lifestyle</h1>
-                </div>
-                <div class="header-middle">
-                    <div class="search-bar">
-                        <input type="text" id="searchInput" placeholder="Search products..." class="search-input">
-                        <button class="search-btn"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <a href="#" class="cart-icon" id="cartIcon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </a>
-                </div>
+        <nav class="nav-container">
+            <div class="logo">Skyo.</div>
+            <div class="nav-links hide-mobile">
+                <a href="#new">New Arrivals</a>
+                <a href="#fashion">Fashion</a>
+                <a href="#gadgets">Gadgets</a>
+                <a href="#boutique">Boutique</a>
             </div>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#" onclick="filterCategory('all')">All</a></li>
-                    <li><a href="#" onclick="filterCategory('fashion')">Fashion</a></li>
-                    <li><a href="#" onclick="filterCategory('watches')">Watches</a></li>
-                    <li><a href="#" onclick="filterCategory('gadgets')">Gadgets</a></li>
-                    <li><a href="#" onclick="filterCategory('electronics')">Electronics</a></li>
-                </ul>
-            </nav>
-        </div>
+            <div class="nav-icons">
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="#" id="cartToggle"><i class="fas fa-shopping-bag"></i> <span class="badge">0</span></a>
+            </div>
+        </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Using a high-quality stock video or HD image -->
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=80" class="hero-video-bg">
         <div class="hero-content">
-            <h2>Premium Fashion & Gadgets</h2>
-            <p>Authentic products with Cash on Delivery & Multiple Payment Options</p>
-            <button class="cta-btn" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Shop Now</button>
+            <p class="reveal-text">New Season 2026</p>
+            <h1>Elevate Your Every Day.</h1>
+            <button class="btn-premium">Explore Collection</button>
         </div>
     </section>
 
-    <!-- Trust Badges -->
-    <section class="trust-badges">
-        <div class="container">
-            <div class="badge">
-                <i class="fas fa-check-circle"></i>
-                <p>Authentic Products</p>
+    <!-- Category Bento Grid -->
+    <section class="category-section">
+        <div class="bento-grid">
+            <div class="bento-item bento-1">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800" alt="">
+                <div class="bento-overlay">
+                    <h3>High Fashion</h3>
+                    <p>Spring Summer 2026</p>
+                </div>
             </div>
-            <div class="badge">
-                <i class="fas fa-truck"></i>
-                <p>Fast Delivery</p>
+            <div class="bento-item bento-2">
+                <img src="https://images.unsplash.com/photo-1546868889-4e0c6819757e?auto=format&fit=crop&w=800" alt="">
+                <div class="bento-overlay">
+                    <h3>Smart Gadgets</h3>
+                </div>
             </div>
-            <div class="badge">
-                <i class="fas fa-shield-alt"></i>
-                <p>Secure Payment</p>
+            <div class="bento-item">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800" alt="">
+                <div class="bento-overlay">
+                    <h3>Accessories</h3>
+                </div>
             </div>
-            <div class="badge">
-                <i class="fas fa-undo"></i>
-                <p>Easy Returns</p>
+            <div class="bento-item">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800" alt="">
+                <div class="bento-overlay">
+                    <h3>Audio Labs</h3>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <h2 class="section-title">Our Collections</h2>
-            <div id="productsGrid" class="products-grid">
-                <!-- Products will be loaded here by JavaScript -->
-            </div>
+    <!-- Featured Products -->
+    <section class="products-section container">
+        <div class="section-header">
+            <h2>Trending Now</h2>
+            <a href="#">View All</a>
+        </div>
+        <div class="products-grid" id="productContainer">
+            <!-- Dynamically injected via JS -->
         </div>
     </section>
 
-    <!-- Cart Sidebar -->
-    <div id="cartSidebar" class="cart-sidebar">
-        <div class="cart-header">
-            <h3>Shopping Cart</h3>
-            <button class="close-btn" onclick="toggleCart()">&times;</button>
-        </div>
-        <div id="cartItems" class="cart-items">
-            <!-- Cart items will be displayed here -->
-        </div>
-        <div class="cart-summary">
-            <div class="summary-item">
-                <span>Subtotal:</span>
-                <span id="subtotal">৳0</span>
-            </div>
-            <div class="summary-item">
-                <span>Delivery Charge:</span>
-                <span id="deliveryCharge">৳100</span>
-            </div>
-            <div class="summary-item total">
-                <span>Total:</span>
-                <span id="total">৳100</span>
-            </div>
-        </div>
-        <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
-        <button class="whatsapp-order-btn" onclick="orderViaWhatsApp()">
-            <i class="fab fa-whatsapp"></i> Order via WhatsApp
-        </button>
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-bottom-nav">
+        <a href="#"><i class="fas fa-home"></i></a>
+        <a href="#"><i class="fas fa-th-large"></i></a>
+        <a href="#"><i class="fas fa-shopping-bag"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
     </div>
 
-    <!-- Checkout Modal -->
-    <div id="checkoutModal" class="modal">
-        <div class="modal-content checkout-form-container">
-            <button class="modal-close" onclick="closeCheckout()">&times;</button>
-            <h2>Complete Your Order</h2>
-            
-            <!-- Order Summary -->
-            <div class="order-summary">
-                <h3>Order Summary</h3>
-                <div id="orderSummaryItems" class="summary-items-list">
-                    <!-- Items will be populated here -->
-                </div>
-                <div class="summary-total">
-                    <strong>Total: <span id="orderTotal">৳0</span></strong>
-                </div>
-            </div>
-
-            <!-- Customer Information Form -->
-            <form id="checkoutForm" class="checkout-form">
-                <h3>Delivery Information</h3>
-                
-                <div class="form-group">
-                    <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" required placeholder="Enter your full name">
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" required placeholder="01XXXXXXXXX">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="your@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="address">Delivery Address *</label>
-                    <textarea id="address" required placeholder="Enter complete address"></textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="city">City *</label>
-                        <input type="text" id="city" required placeholder="e.g., Dhaka">
-                    </div>
-                    <div class="form-group">
-                        <label for="postcode">Postcode *</label>
-                        <input type="text" id="postcode" required placeholder="e.g., 1200">
-                    </div>
-                </div>
-
-                <h3>Payment Method</h3>
-                
-                <div class="payment-options">
-                    <label class="payment-option">
-                        <input type="radio" name="paymentMethod" value="cod" checked>
-                        <span class="payment-label">
-                            <strong>💵 Cash on Delivery (COD)</strong>
-                            <small>Pay when you receive your order</small>
-                        </span>
-                    </label>
-                    
-                    <label class="payment-option">
-                        <input type="radio" name="paymentMethod" value="bkash">
-                        <span class="payment-label">
-                            <strong>🏦 bKash</strong>
-                            <small>Send to: 01601193696</small>
-                        </span>
-                    </label>
-                    
-                    <label class="payment-option">
-                        <input type="radio" name="paymentMethod" value="nagad">
-                        <span class="payment-label">
-                            <strong>📱 Nagad</strong>
-                            <small>Send to: 01601193696</small>
-                        </span>
-                    </label>
-                    
-                    <label class="payment-option">
-                        <input type="radio" name="paymentMethod" value="whatsapp">
-                        <span class="payment-label">
-                            <strong>💬 WhatsApp Order</strong>
-                            <small>Get order link via WhatsApp</small>
-                        </span>
-                    </label>
-                </div>
-
-                <!-- Payment Instructions -->
-                <div id="paymentInstructions" class="payment-instructions">
-                    <!-- Instructions will appear based on selected payment method -->
-                </div>
-
-                <button type="button" class="place-order-btn" onclick="validateAndPlaceOrder()">Place Order</button>
-            </form>
-        </div>
+    <!-- Luxury Cart Drawer -->
+    <div class="cart-drawer" id="cartDrawer">
+        <!-- Minimalist content -->
     </div>
 
-    <!-- Order Confirmation Modal -->
-    <div id="confirmationModal" class="modal">
-        <div class="modal-content confirmation-container">
-            <div class="confirmation-content">
-                <div class="confirmation-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h2>Order Confirmed!</h2>
-                <p>Thank you for your purchase</p>
-                
-                <div class="confirmation-details">
-                    <div class="detail-item">
-                        <strong>Order ID:</strong>
-                        <span id="orderId"></span>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Total Amount:</strong>
-                        <span id="confirmationTotal"></span>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Payment Method:</strong>
-                        <span id="confirmationPayment"></span>
-                    </div>
-                    <div class="detail-item">
-                        <strong>Delivery Address:</strong>
-                        <span id="confirmationAddress"></span>
-                    </div>
-                </div>
-
-                <div class="confirmation-message">
-                    <p>✅ Order confirmation has been sent to your WhatsApp</p>
-                    <p>📍 You will receive a call/message with delivery updates</p>
-                </div>
-
-                <div class="confirmation-actions">
-                    <button class="btn-primary" onclick="goToHome()">Continue Shopping</button>
-                    <button class="btn-secondary" onclick="shareOrderOnWhatsApp()">Share on WhatsApp</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Seller Contact Section -->
-    <section class="seller-contact">
-        <div class="container">
-            <h2>Need Help?</h2>
-            <div class="contact-options">
-                <div class="contact-card">
-                    <i class="fab fa-whatsapp"></i>
-                    <h3>WhatsApp</h3>
-                    <p><a href="https://wa.me/8801601193696">01601193696</a></p>
-                    <p>Available 9 AM - 9 PM</p>
-                </div>
-                <div class="contact-card">
-                    <i class="fas fa-phone"></i>
-                    <h3>Phone</h3>
-                    <p><a href="tel:01601193696">01601193696</a></p>
-                    <p>Available 9 AM - 9 PM</p>
-                </div>
-                <div class="contact-card">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <h3>Delivery Info</h3>
-                    <p>Dhaka: 24-48 hours</p>
-                    <p>Outside Dhaka: 2-3 days</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>About Skyo Lifestyle</h4>
-                    <p>Premium fashion and gadgets for modern lifestyle</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Payment Methods</h4>
-                    <p>✓ Cash on Delivery</p>
-                    <p>✓ bKash</p>
-                    <p>✓ Nagad</p>
-                    <p>✓ WhatsApp Order</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Skyo Lifestyle. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/products-data.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/checkout.js"></script>
 </body>
 </html>

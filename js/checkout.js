@@ -1,153 +1,87 @@
-// Payment Instructions Management
-function updatePaymentInstructions() {
-    const selected = document.querySelector('input[name="paymentMethod"]:checked').value;
-    const instructionsDiv = document.getElementById('paymentInstructions');
-    
-    let html = '';
-    
-    switch(selected) {
-        case 'cod':
-            html = `
-                <div class="payment-instructions active">
-                    <h4>💵 Cash on Delivery (COD)</h4>
-                    <p>✓ No payment needed right now</p>
-                    <p>✓ Pay when you receive your order</p>
-                    <p>✓ Our delivery person will call you before arrival</p>
-                    <p>✓ Verify the product before making payment</p>
-                </div>
-            `;
-            break;
-        
-        case 'bkash':
-            html = `
-                <div class="payment-instructions active">
-                    <h4>🏦 bKash Payment Instructions</h4>
-                    <p><strong>Send Money to:</strong></p>
-                    <div class="payment-number">01601193696</div>
-                    <p><strong>Steps:</strong></p>
-                    <p>1. Go to MENU > Send Money</p>
-                    <p>2. Enter the bKash number: 01601193696</p>
-                    <p>3. Enter the amount: <strong id="bkashAmount">৳0</strong></p>
-                    <p>4. Enter reference: <strong id="bkashRef">Order Amount</strong></p>
-                    <p>5. Complete the transaction</p>
-                    <p><strong>⚠️ Important:</strong> Share your transaction ID with us via WhatsApp after payment</p>
-                </div>
-            `;
-            updatePaymentAmount('bkash');
-            break;
-        
-        case 'nagad':
-            html = `
-                <div class="payment-instructions active">
-                    <h4>📱 Nagad Payment Instructions</h4>
-                    <p><strong>Send Money to:</strong></p>
-                    <div class="payment-number">01331259766</div>
-                    <p><strong>Steps:</strong></p>
-                    <p>1. Open Nagad App</p>
-                    <p>2. Select "Send Money"</p>
-                    <p>3. Enter the Nagad number: 01331259766</p>
-                    <p>4. Enter the amount: <strong id="nagadAmount">৳0</strong></p>
-                    <p>5. Complete the transaction</p>
-                    <p><strong>⚠️ Important:</strong> Share your transaction ID with us via WhatsApp after payment</p>
-                </div>
-            `;
-            updatePaymentAmount('nagad');
-            break;
-        
-        case 'whatsapp':
-            html = `
-                <div class="payment-instructions active">
-                    <h4>💬 WhatsApp Order Instructions</h4>
-                    <p>✓ Your order details will be sent to WhatsApp</p>
-                    <p>✓ You'll receive payment options and confirmation</p>
-                    <p>✓ Our team will guide you through the payment process</p>
-                    <p><strong>WhatsApp Number:</strong></p>
-                    <div class="payment-number">01601193696</div>
-                    <p>✓ Chat will be available 9 AM to 9 PM daily</p>
-                </div>
-            `;
-            break;
+// Open Checkout Modal
+function openCheckout() {
+    if (cart.length === 0) {
+        alert("Your bag is empty.");
+        return;
     }
-    
-    instructionsDiv.innerHTML = html;
+    document.getElementById('checkoutModal').style.display = 'block';
+    updateOrderSummary();
+    setupPaymentTiles();
 }
 
-function updatePaymentAmount(method) {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const total = subtotal + DELIVERY_CHARGE;
-    
-    if (method === 'bkash') {
-        document.getElementById('bkashAmount').textContent = `৳${total}`;
-    } else if (method === 'nagad') {
-        document.getElementById('nagadAmount').textContent = `৳${total}`;
-    }
+function closeCheckout() {
+    document.getElementById('checkoutModal').style.display = 'none';
 }
 
-// Form validation
-function validateCheckoutForm() {
-    const fullName = document.getElementById('fullName').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const address = document.getElementById('address').value.trim();
-    const city = document.getElementById('city').value.trim();
-    const postcode = document.getElementById('postcode').value.trim();
-    
-    if (!fullName) {
-        alert('Please enter your full name');
-        return false;
-    }
-    
-    if (!phone) {
-        alert('Please enter your phone number');
-        return false;
-    }
-    
-    if (!phone.match(/^(01|\+8801)[0-9]{9}$/)) {
-        alert('Please enter a valid Bangladeshi phone number (01XXXXXXXXX)');
-        return false;
-    }
-    
-    if (!address) {
-        alert('Please enter your delivery address');
-        return false;
-    }
-    
-    if (!city) {
-        alert('Please enter your city');
-        return false;
-    }
-    
-    if (!postcode) {
-        alert('Please enter your postcode');
-        return false;
-    }
-    
-    return true;
+// Update Order Summary in Checkout
+function updateOrderSummary() {
+    const summaryList = document.getElementById('orderSummaryItems');
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const shipping = 100; 
+
+    summaryList.innerHTML = cart.map(item => `
+        <div class="summary-item">
+            <span>${item.name} (x${item.qty})</span>
+            <span>৳${(item.price * item.qty).toLocaleString()}</span>
+        </div>
+    `).join('');
+
+    document.getElementById('orderTotal').innerText = `৳${(subtotal + shipping).toLocaleString()}`;
 }
 
-// Enhanced checkout modal functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize payment instructions
-    updatePaymentInstructions();
-    
-    // Handle form submission
-    const checkoutForm = document.getElementById('checkoutForm');
-    if (checkoutForm) {
-        checkoutForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            validateAndPlaceOrder();
+// Payment Option Selection Effect
+function setupPaymentTiles() {
+    const options = document.querySelectorAll('.payment-option');
+    options.forEach(opt => {
+        opt.addEventListener('click', function() {
+            options.forEach(o => o.classList.remove('selected'));
+            this.classList.add('selected');
+            this.querySelector('input').checked = true;
         });
-    }
-});
+    });
+}
 
-// Close modal by clicking outside
-document.addEventListener('click', function(e) {
-    const checkoutModal = document.getElementById('checkoutModal');
-    const confirmationModal = document.getElementById('confirmationModal');
+// Place Order & Generate WhatsApp Message
+function validateAndPlaceOrder() {
+    const name = document.getElementById('fullName').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+    if (!name || !phone || !address) {
+        alert("Please fill in your delivery details.");
+        return;
+    }
+
+    const orderId = 'SKYO-' + Math.floor(1000 + Math.random() * 9000);
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const total = subtotal + 100;
+
+    // Create Premium WhatsApp Message
+    let message = `✨ *NEW ORDER: ${orderId}* ✨\n\n`;
+    message += `👤 *Customer:* ${name}\n`;
+    message += `📞 *Phone:* ${phone}\n`;
+    message += `📍 *Address:* ${address}\n`;
+    message += `💳 *Payment:* ${payment.toUpperCase()}\n\n`;
+    message += `📦 *Products:*\n`;
     
-    if (e.target === checkoutModal) {
-        closeCheckout();
-    }
-    if (e.target === confirmationModal) {
-        goToHome();
-    }
-});
+    cart.forEach(item => {
+        message += `- ${item.name} (x${item.qty}): ৳${(item.price * item.qty).toLocaleString()}\n`;
+    });
+
+    message += `\n💰 *Total Amount: ৳${total.toLocaleString()}*`;
+    message += `\n\n_Thank you for shopping with Skyo Lifestyle!_`;
+
+    const waUrl = `https://wa.me/8801601193696?text=${encodeURIComponent(message)}`;
+    
+    // Clear cart and redirect
+    localStorage.removeItem('SKYO_CART');
+    window.open(waUrl, '_blank');
+    location.reload();
+}
+
+// Standard WhatsApp Order (Directly from Cart)
+function orderViaWhatsApp() {
+    if (cart.length === 0) return alert("Bag is empty");
+    openCheckout(); // Redirecting to checkout for better info gathering
+}

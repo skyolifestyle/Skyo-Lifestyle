@@ -1,21 +1,30 @@
 // Open Checkout Modal
 function openCheckout() {
-    if (cart.length === 0) {
+    if (typeof cart === 'undefined' || cart.length === 0) {
         alert("Your bag is empty.");
         return;
     }
-    document.getElementById('checkoutModal').style.display = 'block';
-    updateOrderSummary();
-    setupPaymentTiles();
+    const modal = document.getElementById('checkoutModal');
+    if (modal) {
+        modal.style.display = 'block';
+        updateOrderSummary();
+    }
 }
 
 function closeCheckout() {
-    document.getElementById('checkoutModal').style.display = 'none';
+    const modal = document.getElementById('checkoutModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 // Update Order Summary in Checkout
 function updateOrderSummary() {
     const summaryList = document.getElementById('orderSummaryItems');
+    const orderTotal = document.getElementById('orderTotal');
+    
+    if (!summaryList || !orderTotal) return;
+
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     const shipping = 100; 
 
@@ -26,32 +35,41 @@ function updateOrderSummary() {
         </div>
     `).join('');
 
-    document.getElementById('orderTotal').innerText = `৳${(subtotal + shipping).toLocaleString()}`;
+    orderTotal.innerText = `৳${(subtotal + shipping).toLocaleString()}`;
 }
 
-// Payment Option Selection Effect
+// Payment Option Selection Effect (বাহিরে নিয়ে আসা হয়েছে পারফরম্যান্সের জন্য)
 function setupPaymentTiles() {
     const options = document.querySelectorAll('.payment-option');
     options.forEach(opt => {
         opt.addEventListener('click', function() {
             options.forEach(o => o.classList.remove('selected'));
             this.classList.add('selected');
-            this.querySelector('input').checked = true;
+            
+            const radioInput = this.querySelector('input[name="paymentMethod"]');
+            if (radioInput) radioInput.checked = true;
         });
     });
 }
 
 // Place Order & Generate WhatsApp Message
 function validateAndPlaceOrder() {
-    const name = document.getElementById('fullName').value;
-    const phone = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
-    const payment = document.querySelector('input[name="paymentMethod"]:checked').value;
+    const nameInput = document.getElementById('fullName');
+    const phoneInput = document.getElementById('phone');
+    const addressInput = document.getElementById('address');
+    const checkedPayment = document.querySelector('input[name="paymentMethod"]:checked');
+
+    const name = nameInput ? nameInput.value.trim() : '';
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+    const address = addressInput ? addressInput.value.trim() : '';
 
     if (!name || !phone || !address) {
         alert("Please fill in your delivery details.");
         return;
     }
+
+    // 🟢 ফিক্স: পেমেন্ট মেথড সিলেক্ট না করা থাকলে ক্যাশ অন ডেলিভারি ডিফল্ট ধরে নেবে
+    const payment = checkedPayment ? checkedPayment.value : 'cod';
 
     const orderId = 'SKYO-' + Math.floor(1000 + Math.random() * 9000);
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -82,6 +100,20 @@ function validateAndPlaceOrder() {
 
 // Standard WhatsApp Order (Directly from Cart)
 function orderViaWhatsApp() {
-    if (cart.length === 0) return alert("Bag is empty");
-    openCheckout(); // Redirecting to checkout for better info gathering
+    if (typeof cart === 'undefined' || cart.length === 0) {
+        alert("Bag is empty");
+        return;
+    }
+    openCheckout();
 }
+
+// 🟢 পেজ লোড হওয়ার সাথে সাথে পেমেন্ট বাটন এবং প্লেস অর্ডার বাটনের ইভেন্ট চালু হবে
+document.addEventListener('DOMContentLoaded', () => {
+    setupPaymentTiles();
+
+    // প্লেস অর্ডার বাটনে ক্লিক কানেক্ট করা
+    const placeOrderBtn = document.querySelector('.place-order-btn');
+    if (placeOrderBtn) {
+        placeOrderBtn.addEventListener('click', validateAndPlaceOrder);
+    }
+});
